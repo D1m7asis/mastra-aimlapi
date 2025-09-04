@@ -194,6 +194,11 @@ export default withGT(
         permanent: true,
       },
       {
+        source: "/docs/frameworks/aimlapi",
+        destination: "/docs/frameworks/agentic-uis/aimlapi",
+        permanent: true,
+      },
+      {
         source: "/docs/frameworks/01-next-js",
         destination: "/docs/frameworks/next-js",
         permanent: true,

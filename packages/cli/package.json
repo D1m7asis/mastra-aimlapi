@@ -54,6 +54,7 @@
     "@mastra/deployer": "workspace:^",
     "@mastra/loggers": "workspace:^",
     "@mastra/mcp": "workspace:^",
+    "@ai-ml.api/aimlapi-vercel-ai": "^1.0.2",
     "@opentelemetry/core": "^2.0.1",
     "@opentelemetry/instrumentation": "^0.203.0",
     "@opentelemetry/auto-instrumentations-node": "^0.62.1",
