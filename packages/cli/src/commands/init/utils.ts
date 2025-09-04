@@ -20,7 +20,14 @@ import {
 
 const exec = util.promisify(child_process.exec);
 
-export type LLMProvider = 'openai' | 'anthropic' | 'groq' | 'google' | 'cerebras' | 'mistral';
+export type LLMProvider =
+  | 'openai'
+  | 'anthropic'
+  | 'groq'
+  | 'google'
+  | 'cerebras'
+  | 'mistral'
+  | 'aimlapi';
 export type Components = 'agents' | 'workflows' | 'tools';
 
 export const getAISDKPackageVersion = (llmProvider: LLMProvider) => {
@@ -45,6 +52,8 @@ export const getAISDKPackage = (llmProvider: LLMProvider) => {
       return '@ai-sdk/cerebras';
     case 'mistral':
       return '@ai-sdk/mistral';
+    case 'aimlapi':
+      return '@ai-ml.api/aimlapi-vercel-ai';
     default:
       return '@ai-sdk/openai';
   }
@@ -72,6 +81,9 @@ export const getProviderImportAndModelItem = (llmProvider: LLMProvider) => {
   } else if (llmProvider === 'mistral') {
     providerImport = `import { mistral } from '${getAISDKPackage(llmProvider)}';`;
     modelItem = `mistral('mistral-medium-2508')`;
+  } else if (llmProvider === 'aimlapi') {
+    providerImport = `import { aimlapi } from '${getAISDKPackage(llmProvider)}';`;
+    modelItem = `aimlapi('gpt-4o-mini')`;
   }
   return { providerImport, modelItem };
 };
@@ -477,6 +489,9 @@ export const getAPIKey = async (provider: LLMProvider) => {
     case 'mistral':
       key = 'MISTRAL_API_KEY';
       return key;
+    case 'aimlapi':
+      key = 'AIMLAPI_API_KEY';
+      return key;
     default:
       return key;
   }
@@ -546,6 +561,7 @@ export const interactivePrompt = async () => {
             { value: 'google', label: 'Google' },
             { value: 'cerebras', label: 'Cerebras' },
             { value: 'mistral', label: 'Mistral' },
+            { value: 'aimlapi', label: 'AIMLAPI' },
           ] satisfies { value: LLMProvider; label: string; hint?: string }[],
         }),
       llmApiKey: async ({ results: { llmProvider } }) => {
